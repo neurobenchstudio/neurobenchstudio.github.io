@@ -464,16 +464,48 @@
     }
 
     @media (max-width: 768px) {
+      .nav-links li:not(:nth-last-child(2)):not(:last-child) {
+        display: none;
+      }
+      .nav-links {
+        gap: 0.8rem;
+      }
+      .btn-nav-download {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+      }
+      .hero {
+        padding: 8rem 1rem 4rem;
+      }
       .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .download-grid {
+        gap: 1rem;
+      }
+      .download-card {
+        padding: 1.2rem;
+      }
+      .features-section {
+        padding: 4rem 1rem;
+      }
+      .section-header h2 {
+        font-size: 1.8rem;
       }
       .preview-card {
-        padding: 2rem;
+        padding: 2rem 1.5rem;
+        gap: 2rem;
+      }
+      .preview-text h2 {
+        font-size: 1.8rem;
       }
     }
   </style>
 </head>
-<body>
+<body class="light-theme">
 
   <!-- Navigation -->
   <header>
@@ -724,10 +756,13 @@
       }
     }
 
-    // Load saved theme on load
+    // Load saved theme on load (defaults to light)
     document.addEventListener('DOMContentLoaded', () => {
       const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'light') {
+      if (savedTheme === 'dark') {
+        document.body.classList.remove('light-theme');
+        document.getElementById('theme-icon').className = 'bi bi-moon-stars';
+      } else {
         document.body.classList.add('light-theme');
         document.getElementById('theme-icon').className = 'bi bi-sun';
       }
