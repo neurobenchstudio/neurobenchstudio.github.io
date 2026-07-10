@@ -60,6 +60,45 @@
       font-weight: 800;
     }
 
+    /* Floating Bottom Navigation Bar for Mobile/Tablet */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 65px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-color);
+      display: none;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .bottom-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 500;
+      gap: 0.25rem;
+      transition: color 0.3s;
+    }
+
+    .bottom-nav-item i {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+    }
+
+    .bottom-nav-item.active, .bottom-nav-item:hover,
+    .bottom-nav-item.active i, .bottom-nav-item:hover i {
+      color: var(--primary);
+    }
+
     /* Glassmorphic Navbar */
     header {
       position: fixed;
@@ -464,15 +503,20 @@
     }
 
     @media (max-width: 768px) {
-      .nav-links li:not(:nth-last-child(2)):not(:last-child) {
+      body {
+        padding-bottom: 70px;
+      }
+      .bottom-nav {
+        display: flex;
+      }
+      .nav-links li:not(:nth-last-child(2)) {
         display: none;
       }
-      .nav-links {
-        gap: 0.8rem;
+      .logo span span {
+        display: none !important;
       }
-      .btn-nav-download {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.8rem;
+      .nav-container {
+        padding: 1rem 1.5rem;
       }
       .hero {
         padding: 8rem 1rem 4rem;
@@ -527,6 +571,26 @@
       </ul>
     </div>
   </header>
+
+  <!-- Floating Bottom Navigation for Mobile/Tablet -->
+  <div class="bottom-nav">
+    <a href="#home" class="bottom-nav-item active" onclick="setActiveNav(this)">
+      <i class="bi bi-house-door"></i>
+      <span>Home</span>
+    </a>
+    <a href="#features" class="bottom-nav-item" onclick="setActiveNav(this)">
+      <i class="bi bi-grid"></i>
+      <span>Features</span>
+    </a>
+    <a href="#demos" class="bottom-nav-item" onclick="setActiveNav(this)">
+      <i class="bi bi-play-circle"></i>
+      <span>Showcases</span>
+    </a>
+    <a href="#downloads" class="bottom-nav-item" onclick="setActiveNav(this)">
+      <i class="bi bi-download"></i>
+      <span>Download</span>
+    </a>
+  </div>
 
   <!-- Hero Section -->
   <main class="hero" id="home">
@@ -754,6 +818,13 @@
         icon.className = 'bi bi-moon-stars';
         localStorage.setItem('theme', 'dark');
       }
+    }
+
+    function setActiveNav(element) {
+      document.querySelectorAll('.bottom-nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      element.classList.add('active');
     }
 
     // Load saved theme on load (defaults to light)
